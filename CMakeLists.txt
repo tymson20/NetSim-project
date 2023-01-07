@@ -15,7 +15,8 @@ include_directories(
 # tych plików źródłowych, które będą niezbędne w każdej konfiguracji.
 
 set(SOURCE_FILES
-        src/package.cpp)
+        src/package.cpp
+        src/package_test.cpp)
 
 # Dodaj konfigurację typu `Debug`.
 add_executable(my_project_debug ${SOURCE_FILES} main.cpp)
