@@ -8,7 +8,7 @@ add_compile_options(-Wall -Wextra -Werror -Wpedantic -pedantic-errors)
 
 # Dodaj katalogi z plikami nagłówkowymi dla wszystkich konfiguracji.
 include_directories(
-        include/package.hpp
+        include
 )
 
 # Ustaw zmienną `SOURCE_FILES`, która będzie przechowywać ścieżki do

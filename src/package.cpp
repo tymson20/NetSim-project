@@ -1,8 +1,5 @@
-//
-// Created by tymek on 07.01.2023.
-//
 
-#include "../include/package.hpp"
+#include "package.hpp"
 
 Package::Package() {
     if (!freed_IDs.empty()) {

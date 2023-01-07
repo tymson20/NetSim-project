@@ -1,12 +1,9 @@
-//
-// Created by tymek on 06.01.2023.
-//
 
 //#include "gmock/gmock.h"
 #include "gtest/gtest.h"
 
-#include "../include/package.hpp"
-#include "../include/types.hpp"
+#include "package.hpp"
+#include "types.hpp"
 
 TEST(PackageTest, IsAssignedIdLowest) {
 // przydzielanie ID o jeden większych -- utworzenie dwóch obiektów pod rząd

@@ -1,11 +1,8 @@
-//
-// Created by tymek on 07.01.2023.
-//
-#include <set>
 
 #ifndef NETSIM_PROJECT_PACKAGE_HPP
 #define NETSIM_PROJECT_PACKAGE_HPP
 
+#include <set>
 #include "types.hpp"
 
 class Package {
