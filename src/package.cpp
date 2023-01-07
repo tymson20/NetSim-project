@@ -1,6 +1,9 @@
 
 #include "package.hpp"
 
+std::set<ElementID> Package::assigned_IDs = std::set<ElementID>();
+std::set<ElementID> Package::freed_IDs = std::set<ElementID>();
+
 Package::Package() {
     if (!freed_IDs.empty()) {
         id_ = *(freed_IDs.begin());
