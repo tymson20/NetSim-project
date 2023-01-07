@@ -11,8 +11,19 @@ Package::Package() {
         assigned_IDs.insert(id_);
     }
     else{
-        ElementID max_element = *(assigned_IDs.rbegin());
-        id_ = max_element + 1;
-        assigned_IDs.insert(id_);
+        if (assigned_IDs.empty()) {
+            id_ = 1;
+            assigned_IDs.insert(id_);
+        }
+        else{
+            ElementID max_element = *(assigned_IDs.rbegin());
+            id_ = max_element + 1;
+            assigned_IDs.insert(id_);
+        }
     }
+}
+
+Package::~Package() {
+    assigned_IDs.erase(id_);
+    freed_IDs.insert(id_);
 }

@@ -11,15 +11,12 @@ public:
 
     Package(ElementID id) : id_(id) {}
 
-    Package(Package&&) = default;
-    Package& operator = (Package&&) = default;
+    Package(Package&& object) = default;
+    Package& operator=(Package&& object) = default;
 
-    const ElementID& get_id() const { return id_; };
+    ElementID get_id() const { return id_; }
 
-    ~Package() {
-        assigned_IDs.erase(id_);
-        freed_IDs.insert(id_);
-    }
+    ~Package();
 
 private:
     static std::set<ElementID> assigned_IDs;
