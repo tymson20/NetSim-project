@@ -15,7 +15,7 @@ public:
     Package(ElementID id) : id_(id) {}
 
     Package(Package&&) = default;
-    Package& operator[](Package&&) { return Package&;}
+    Package& operator = (Package&&) = default;
 
     const ElementID& get_id() const { return id_; };
 
