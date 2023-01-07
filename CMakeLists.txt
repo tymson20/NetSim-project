@@ -15,7 +15,7 @@ include_directories(
 # tych plików źródłowych, które będą niezbędne w każdej konfiguracji.
 
 set(SOURCE_FILES
-        src/package.cpp)
+        src/package.cpp src/storage_types.cpp)
 
 # Dodaj konfigurację typu `Debug`.
 add_executable(my_project_debug ${SOURCE_FILES} main.cpp)
@@ -26,7 +26,8 @@ add_executable(my_project_debug ${SOURCE_FILES} main.cpp)
 # Ustaw zmienną `SOURCES_FILES_TESTS`, która będzie przechowywać ścieżki do
 # plików źródłowych z testami jednostkowymi.
 set(SOURCES_FILES_TESTS
-        test/package_test.cpp)
+        test/test_package.cpp
+        test/test_storage_types.cpp)
 
 # Dodaj konfigurację typu `Test`.
 add_executable(my_project_test ${SOURCE_FILES} ${SOURCES_FILES_TESTS} test/main_gtest.cpp)
