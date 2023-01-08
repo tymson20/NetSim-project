@@ -12,7 +12,16 @@ public:
     Package(ElementID id) : id_(id) {}
 
     Package(Package&& object) = default;
-    Package& operator=(Package&& object) = default;
+    Package& operator=(Package&& object) noexcept {
+        if (this != &object)
+        {
+            assigned_IDs.erase(id_);
+
+            id_ = object.id_;
+            assigned_IDs.insert(id_);
+        }
+        return *this;
+    }
 
     ElementID get_id() const { return id_; }
 
