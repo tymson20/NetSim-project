@@ -5,7 +5,7 @@
 void PackageSender::send_package() {
     if(bufor_){
 
-        receiver_preferences_ = *bufor_;
+        //receiver_preferences_ = *bufor_;
         // !!!!
         //
 
