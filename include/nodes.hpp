@@ -6,9 +6,10 @@
 #include <optional>
 #include <list>
 #include <memory>
+#include <map>
 
 #include "package.hpp"
-#include "types.hpp"
+#include "helpers.hpp"
 #include "storage_types.hpp"
 
 enum class ReceiverType{
@@ -37,7 +38,28 @@ public:
 
 
 class ReceiverPreferences {
-    //TODO implemntacja całej klasy
+public:
+    using preferences_t = std::map<IPackageReceiver*, double>;
+    using const_iterator = preferences_t::const_iterator;
+
+    ReceiverPreferences(ProbabilityGenerator& pg = probability_generator) : pg_(pg) {}
+
+    const_iterator cbegin() { return map_preferences.cbegin(); }
+    const_iterator cbegin() const { return map_preferences.begin(); }
+    const_iterator cend() { return map_preferences.cend(); }
+    const_iterator cend() const { return map_preferences.end(); }
+
+    void add_receiver(IPackageReceiver* r);
+    void remove_receiver(IPackageReceiver* r);
+    IPackageReceiver* choose_receiver();
+    const preferences_t& get_preferences() const { return map_preferences; }
+
+    preferences_t map_preferences;
+protected:
+    void update_probability();
+
+private:
+    ProbabilityGenerator& pg_;
 };
 
 class PackageSender {
