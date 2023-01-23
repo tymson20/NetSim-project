@@ -26,12 +26,10 @@ public:
     virtual void receive_package(Package&& p) = 0;
     virtual ReceiverType get_receiver_type() const = 0;
 
-    virtual const_iterator cbegin()  = 0;
+    virtual const_iterator begin() const = 0;
     virtual const_iterator cbegin() const = 0;
-    virtual const_iterator cend()  = 0;
+    virtual const_iterator end() const = 0;
     virtual const_iterator cend() const = 0;
-
-    virtual ~IPackageReceiver() = default;
 
 };
 
@@ -95,7 +93,7 @@ private:
 
 };
 
-class Worker : public PackageSender, public IPackageReceiver,public IPackageQueue{
+class Worker : public PackageSender, public IPackageReceiver{
 public:
 
     using const_iterator = IPackageStockpile::const_iterator;
@@ -114,18 +112,16 @@ public:
     ElementID  get_id() const override {return id_;};
     ReceiverType get_receiver_type() const override {return receiverType_;};
 
-    void push(Package&& p) override {q_->push(std::move(p));};
-    bool empty() const override {return q_->empty();};
-    std::size_t size() const override {return q_->size();};
-    PackageQueueType get_queue_type() const override {return q_->get_queue_type();};
-    Package pop() override {return q_->pop();};
+    //void push(Package&& p) override {q_->push(std::move(p));};
+    //bool empty() const override {return q_->empty();};
+    //std::size_t size() const override {return q_->size();};
+    //PackageQueueType get_queue_type() const override {return q_->get_queue_type();};
+    //Package pop() override {return q_->pop();};
 
-    const_iterator begin() const override {return q_->cbegin();};
-    const_iterator end() const override {return q_->cend();};
-    const_iterator cbegin() const override {return q_->cbegin();};
-    const_iterator cend() const override {return q_->cend();};
-
-
+    const_iterator begin() const override {return q_->begin();}
+    const_iterator end() const override {return q_->end();}
+    const_iterator cbegin() const override {return q_->cbegin();}
+    const_iterator cend() const override {return q_->cend();}
 private:
     ElementID id_;
     TimeOffset pd_;

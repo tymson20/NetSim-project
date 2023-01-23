@@ -31,13 +31,14 @@ IPackageReceiver* ReceiverPreferences::choose_receiver() {
     double probability_drawn = pg_();
     double sum_of_probabilities = 0.;
     for (auto& pair : map_preferences) {
-        if (sum_of_probabilities <= probability_drawn <= sum_of_probabilities + pair.second) {
+        if ((sum_of_probabilities <= probability_drawn) and (probability_drawn <= sum_of_probabilities + pair.second)) {
             return pair.first;
         }
         else {
             sum_of_probabilities += pair.second;
         }
     }
+    return map_preferences.end()->first;
 }
 
 void PackageSender::send_package() {

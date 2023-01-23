@@ -27,7 +27,8 @@ add_executable(my_project_debug ${SOURCE_FILES} main.cpp)
 # plików źródłowych z testami jednostkowymi.
 set(SOURCES_FILES_TESTS
         test/test_package.cpp
-        test/test_storage_types.cpp)
+        test/test_storage_types.cpp
+        test/test_nodes.cpp)
 
 # Dodaj konfigurację typu `Test`.
 add_executable(my_project_test ${SOURCE_FILES} ${SOURCES_FILES_TESTS} test/main_gtest.cpp)
