@@ -11,12 +11,12 @@
 #include "package.hpp"
 #include "helpers.hpp"
 #include "storage_types.hpp"
+#include "config.hpp"
 
 enum class ReceiverType{
     Worker,
     Storehouse
 };
-
 
 class IPackageReceiver{
 public:
@@ -24,7 +24,10 @@ public:
 
     virtual ElementID get_id() const = 0;
     virtual void receive_package(Package&& p) = 0;
+    #if (defined EXERCISE_ID && EXERCISE_ID != EXERCISE_ID_NODES)
     virtual ReceiverType get_receiver_type() const = 0;
+    #endif
+    //virtual ReceiverType get_receiver_type() const = 0;
 
     virtual const_iterator begin() const = 0;
     virtual const_iterator cbegin() const = 0;
@@ -32,8 +35,6 @@ public:
     virtual const_iterator cend() const = 0;
 
 };
-
-
 
 class ReceiverPreferences {
 public:
@@ -78,7 +79,6 @@ private:
 
 };
 
-
 class Ramp : public PackageSender {
 public:
     Ramp(ElementID id, TimeOffset di) : id_(id), di_(di) {}
@@ -105,12 +105,15 @@ public:
 
     TimeOffset get_processing_duration() const {return pd_;};
     Time get_package_processing_start_time() const {return stime_;};
-    IPackageQueue* get_queue() const {return q_.get();};
+    IPackageQueue* get_queue() const {return q_.get();}
     const std::optional<Package>& get_processing_buffer() const {return worker_buffor_;};
 
     void receive_package(Package&& p) override {q_->push(std::move(p));};
     ElementID  get_id() const override {return id_;};
-    ReceiverType get_receiver_type() const override {return receiverType_;};
+    #if (defined EXERCISE_ID && EXERCISE_ID != EXERCISE_ID_NODES)
+    ReceiverType get_receiver_type() const override {return receiverType_;}
+    #endif
+    //ReceiverType get_receiver_type() const override {return receiverType_;};
 
     //void push(Package&& p) override {q_->push(std::move(p));};
     //bool empty() const override {return q_->empty();};
@@ -139,7 +142,10 @@ public:
 
     ElementID get_id() const override { return id_; }
     void receive_package(Package&& p) override { stockpile_ptr->push(std::move(p)); }
+    #if (defined EXERCISE_ID && EXERCISE_ID != EXERCISE_ID_NODES)
     ReceiverType get_receiver_type() const override { return receiverType_; }
+    #endif
+    //ReceiverType get_receiver_type() const override { return receiverType_; }
 
     const_iterator cbegin() const override { return stockpile_ptr->cbegin(); }
     const_iterator begin() const override { return stockpile_ptr->begin(); }
@@ -152,8 +158,5 @@ private:
     ReceiverType receiverType_ = ReceiverType::Storehouse;
 
 };
-
-
-
 
 #endif //NETSIM_PROJECT_NODES_HPP
