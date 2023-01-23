@@ -34,6 +34,7 @@ public:
     virtual const_iterator end() const = 0;
     virtual const_iterator cend() const = 0;
 
+    virtual ~IPackageReceiver() = default;
 };
 
 class ReceiverPreferences {
