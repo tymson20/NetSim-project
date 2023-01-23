@@ -42,11 +42,7 @@ IPackageReceiver* ReceiverPreferences::choose_receiver() {
 
 void PackageSender::send_package() {
     if(bufor_){
-
-        //receiver_preferences_ = *bufor_;
-        // !!!!
-        //
-
+        (*receiver_preferences_.choose_receiver()).receive_package(std::move(*bufor_));
         bufor_.reset();
     }
 }
