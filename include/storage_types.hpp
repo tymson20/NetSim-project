@@ -20,9 +20,9 @@ public:
     virtual bool empty() const = 0;
     virtual std::size_t size() const = 0;
 
-    virtual const_iterator begin() = 0;
+    virtual const_iterator begin() const = 0;
     virtual const_iterator cbegin() const = 0;
-    virtual const_iterator end() = 0;
+    virtual const_iterator end() const = 0;
     virtual const_iterator cend() const = 0;
 
     virtual ~IPackageStockpile() = default;
@@ -44,9 +44,9 @@ public:
     bool empty() const override { return packages_.empty(); }
     std::size_t size() const override { return packages_.size(); }
 
-    const_iterator begin() override { return packages_.begin(); }
+    const_iterator begin() const override { return packages_.begin(); }
     const_iterator cbegin() const override { return packages_.cbegin(); }
-    const_iterator end() override { return packages_.end(); }
+    const_iterator end() const override { return packages_.end(); }
     const_iterator cend() const override { return packages_.cend(); }
 
     Package pop() override;
