@@ -42,10 +42,10 @@ public:
 
     ReceiverPreferences(ProbabilityGenerator& pg = probability_generator) : pg_(pg) {}
 
-    const_iterator cbegin() { return map_preferences.cbegin(); }
-    const_iterator cbegin() const { return map_preferences.begin(); }
-    const_iterator cend() { return map_preferences.cend(); }
-    const_iterator cend() const { return map_preferences.end(); }
+    const_iterator cbegin() const { return map_preferences.cbegin(); }
+    const_iterator begin() const { return map_preferences.begin(); }
+    const_iterator cend() const { return map_preferences.cend(); }
+    const_iterator end() const { return map_preferences.end(); }
 
     void add_receiver(IPackageReceiver* r);
     void remove_receiver(IPackageReceiver* r);
@@ -129,6 +129,27 @@ private:
     std::unique_ptr<IPackageQueue> q_;
     std::optional<Package> worker_buffor_;
     ReceiverType receiverType_ = ReceiverType::Worker;
+
+};
+
+class Storehouse : public IPackageReceiver {
+public:
+    Storehouse(ElementID id, std::unique_ptr<IPackageStockpile> d = std::make_unique<PackageQueue>(PackageQueueType::FIFO)) :
+            id_(id), stockpile_ptr(std::move(d)) {}
+
+    ElementID get_id() const override { return id_; }
+    void receive_package(Package&& p) override { stockpile_ptr->push(std::move(p)); }
+    ReceiverType get_receiver_type() const override { return receiverType_; }
+
+    const_iterator cbegin() const override { return stockpile_ptr->cbegin(); }
+    const_iterator begin() const override { return stockpile_ptr->begin(); }
+    const_iterator cend() const override { return stockpile_ptr->cend(); }
+    const_iterator end() const override { return stockpile_ptr->end(); }
+
+private:
+    ElementID id_;
+    std::unique_ptr<IPackageStockpile> stockpile_ptr;
+    ReceiverType receiverType_ = ReceiverType::Storehouse;
 
 };
 
