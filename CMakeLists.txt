@@ -46,3 +46,4 @@ add_subdirectory(googletest-master)
 # Podlinkuj bibliotekę o identyfikatorze `gmock` (w pliku CMake) wyłącznie do konkretnej
 # konfiguracji (tu: `Test`).
 target_link_libraries(my_project_test gmock)
+target_compile_definitions(my_project_test PUBLIC EXERCISE_ID=EXERCISE_ID_NODES)

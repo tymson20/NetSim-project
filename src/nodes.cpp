@@ -1,4 +1,5 @@
 
+#include <stdexcept>
 #include "nodes.hpp"
 
 void ReceiverPreferences::update_probability() {
@@ -29,16 +30,14 @@ void ReceiverPreferences::remove_receiver(IPackageReceiver *r) {
 
 IPackageReceiver* ReceiverPreferences::choose_receiver() {
     double probability_drawn = pg_();
-    double sum_of_probabilities = 0.;
-    for (auto& pair : map_preferences) {
-        if ((sum_of_probabilities <= probability_drawn) and (probability_drawn <= sum_of_probabilities + pair.second)) {
-            return pair.first;
-        }
-        else {
-            sum_of_probabilities += pair.second;
+    double sum_of_probabilities = 0;
+    for (auto i = map_preferences.begin(); i != map_preferences.end(); i++) {
+        sum_of_probabilities += i -> second;
+        if (sum_of_probabilities > probability_drawn) {
+            return i -> first;
         }
     }
-    return map_preferences.end()->first;
+    return nullptr;
 }
 
 void PackageSender::send_package() {
