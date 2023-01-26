@@ -28,7 +28,6 @@ public:
     #if (defined EXERCISE_ID && EXERCISE_ID != EXERCISE_ID_NODES)
     virtual ReceiverType get_receiver_type() const = 0;
     #endif
-    //virtual ReceiverType get_receiver_type() const = 0;
 
     virtual const_iterator begin() const = 0;
     virtual const_iterator cbegin() const = 0;
@@ -115,13 +114,6 @@ public:
     #if (defined EXERCISE_ID && EXERCISE_ID != EXERCISE_ID_NODES)
     ReceiverType get_receiver_type() const override {return receiverType_;}
     #endif
-    //ReceiverType get_receiver_type() const override {return receiverType_;};
-
-    //void push(Package&& p) override {q_->push(std::move(p));};
-    //bool empty() const override {return q_->empty();};
-    //std::size_t size() const override {return q_->size();};
-    //PackageQueueType get_queue_type() const override {return q_->get_queue_type();};
-    //Package pop() override {return q_->pop();};
 
     const_iterator begin() const override {return q_->begin();}
     const_iterator end() const override {return q_->end();}
@@ -147,7 +139,6 @@ public:
     #if (defined EXERCISE_ID && EXERCISE_ID != EXERCISE_ID_NODES)
     ReceiverType get_receiver_type() const override { return receiverType_; }
     #endif
-    //ReceiverType get_receiver_type() const override { return receiverType_; }
 
     const_iterator cbegin() const override { return stockpile_ptr->cbegin(); }
     const_iterator begin() const override { return stockpile_ptr->begin(); }
